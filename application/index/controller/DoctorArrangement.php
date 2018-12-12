@@ -4,41 +4,22 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use app\index\model\AppointmentPeriod as AppointmentPeriodModel;
+use app\index\model\Doctor as DoctorModel;
 
-class Patient extends Controller
+class DoctorArrangement extends Controller
 {
-    public function home()
-    {
-        if (!session('?ext_user')) {
-            header(strtolower("location: " . config("web"). "index/log/log"));
-            exit();
-        }
-        return $this->fetch();
-    }
-
-    public function logout()
-    {
-        \app\index\model\Patient::logout();
-        if (!session('?ext_user')) {
-            header(strtolower("location:". config("web").'/index/log/log'));
-            exit();
-        }
-        return NULL;
-    }
-
-    public function register()
-    {
-        return $this->fetch();
-    }
-
     /**
      * 显示资源列表
      *
      * @return \think\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $doctor = DoctorModel::get($id);
+        $res["code"] = 0;
+        $res["data"] = $doctor->periods;
+        return json_encode($res);
     }
 
     /**
@@ -81,7 +62,13 @@ class Patient extends Controller
      */
     public function edit($id)
     {
-        //
+        $doctor = DoctorModel::get($id);
+        $periods_full_list = AppointmentPeriodModel::all();
+        $periods_chosen = $doctor->periods;
+        $this->assign('doctor', $doctor);
+        $this->assign('appointment_period_list', $periods_full_list);
+        $this->assign('appointment_period_chosen_list', $periods_chosen);
+        return $this->fetch();
     }
 
     /**
@@ -93,7 +80,13 @@ class Patient extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $doctor = DoctorModel::get($id);
+        $doctor->periods()->detach();
+        $periods = input('post.period_id');
+        if($doctor->periods()->saveAll($periods))
+            return $this->success('修改成功！', url('index/doctor/home'));
+        else
+            return $doctor->getError();
     }
 
     /**

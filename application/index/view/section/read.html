@@ -1,0 +1,40 @@
+{include file="admin/header" title="查看科室成员" /}
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">查看科室成员</h3>
+        </div>
+        <div class="panel-body">
+            <!--<a href="{:url('index/section/create')}" class="btn btn-success">添加科室</a>-->
+        </div>
+        <table name="section-list" class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>科室名</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="section"}
+            <tr>
+                <td>{$section.id}</td>
+                <td>{$section.name}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="operation">
+                        <a href="{:url('index/section/read', ['id' => $section.id])}" class="btn btn-default">查看科室成员</a>
+                        <a href="{:url('index/section/edit', ['id' => $section.id])}" class="btn btn-default">编辑</a>
+                        <a href="{:url('index/section/delete', ['id' => $section.id])}" class="btn btn-danger">删除</a>
+                    </div>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+{include file="admin/footer" /}

@@ -15,7 +15,7 @@
 
 return [
     // 应用名称
-    'app_name'               => '',
+    'app_name'               => '诊所管理系统',
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
@@ -142,5 +142,9 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
+
+    'web_root' => "/code/clinic_management/public/static",
+
+    "web" => "/code/clinic_management/public",
 
 ];

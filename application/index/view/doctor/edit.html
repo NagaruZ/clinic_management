@@ -1,0 +1,68 @@
+{if session('role') == 'admin'}
+{include file="admin/header" title="修改医生信息" /}
+{else /}
+{include file="doctor/header" title="修改医生信息" /}
+{/if}
+
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">修改医生信息</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form">
+                <form action="{:url('index/doctor/update', ['id' => $doctor.id])}" role="form" method="post">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" name="username" class="username form-control" placeholder="用户名" value="{$doctor.username}">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" name="name" class="username form-control" placeholder="姓名" value="{$doctor.name}">
+                    </div>
+                    <div class="form-group">
+                        <label for="birth_date">出生日期</label>
+                        <input type="date" name="birth_date" class="form-control" placeholder="出生日期" value="{$doctor.birth_date}">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">性别</label>
+                        <select name="gender">
+                            <option value="0" {eq name="$doctor.gender" value="0"} selected {/eq}>男</option>
+                            <option value="1" {eq name="$doctor.gender" value="1"} selected {/eq}>女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">手机号</label>
+                        <input type="text" name="phone" class="form-control" placeholder="手机号" value="{$doctor.phone}">
+                    </div>
+                    <div class="form-group">
+                        <label for="level">职称</label>
+                        <input type="text" name="level" class="form-control" placeholder="职称" value="{$doctor.level}">
+                    </div>
+                    <div class="form-group">
+                        <label for="section_id">科室</label>
+                        <select name="section_id">
+                            {volist name="section_list" id="section"}
+                            <option value="{$section.id}" {eq name="$section.id" value="$doctor.section_id"}selected{/eq}>{$section.name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">描述</label>
+                        <textarea name="description" class="form-control" rows="10" cols="30" placeholder="描述">{$doctor.description}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_appointment_num">最大可预约数</label>
+                        <input type="text" name="max_appointment_num" class="form-control" placeholder="最大可预约数" value="{$doctor.max_appointment_num}">
+                    </div>
+                    <button type="submit" class="btn btn-default">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+{include file="admin/footer" /}

@@ -1,0 +1,41 @@
+{include file="admin/header" title="查看预约时段" /}
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">查看预约时段</h3>
+        </div>
+        <div class="panel-body">
+            <a href="{:url('index/appointment_period/create')}" class="btn btn-success">添加预约时段</a>
+        </div>
+        <table name="appointment-period-list" class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="appointment_period"}
+            <tr>
+                <td>{$appointment_period.id}</td>
+                <td>{$appointment_period.start_time}</td>
+                <td>{$appointment_period.end_time}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="operation">
+                        <a href="{:url('index/appointment_period/edit', ['id' => $appointment_period.id])}" class="btn btn-default">编辑</a>
+                        <a href="{:url('index/appointment_period/delete', ['id' => $appointment_period.id])}" class="btn btn-danger">删除</a>
+                    </div>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+{include file="admin/footer" /}

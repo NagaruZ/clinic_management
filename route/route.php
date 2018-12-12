@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('login', 'login/login');
+Route::get('log', 'log/log');
 
 
 return [

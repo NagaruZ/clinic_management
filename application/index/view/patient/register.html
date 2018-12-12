@@ -1,0 +1,44 @@
+{include file="patient/header" title="会员注册" /}
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">会员注册</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form">
+                <form action="{:url('index/patient/save')}" method="post">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" name="username" class="username form-control" placeholder="用户名">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" name="password" class="password form-control" placeholder="密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" name="name" class="username form-control" placeholder="姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="birth_date">出生日期</label>
+                        <input type="date" name="birth_date" class="form-control" placeholder="出生日期">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">性别</label>
+                        <input type="text" name="gender" class="form-control" placeholder="性别">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">手机号</label>
+                        <input type="text" name="phone" class="form-control" placeholder="手机号">
+                    </div>
+                    <button type="submit" class="btn btn-default">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+{include file="patient/footer" /}

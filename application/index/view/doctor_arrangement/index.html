@@ -1,0 +1,49 @@
+{include file="patient/header" title="查看所有预约" /}
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">查看所有预约</h3>
+        </div>
+        <div class="panel-body">
+            <a href="{:url('index/appointment/create')}" class="btn btn-success">预约新的诊断</a>
+        </div>
+        <table name="appointment-list" class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>医生</th>
+                <th>时间段</th>
+                <th>是否已完成</th>
+                <th>是否已取消</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="appointment"}
+            <tr>
+                <td>{$appointment.id}</td>
+                <td>
+                    {$appointment.doctor.name}
+                </td>
+                <td>
+                    {$appointment.period.start_time} - {$appointment.period.end_time}
+                </td>
+                <td>{$appointment.finish_status}</td>
+                <td>{$appointment.cancel_status}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="operation">
+                        <a href="{:url('index/appointment/edit', ['id' => $appointment.id])}" class="btn btn-default {if ($appointment.is_finished) OR ($appointment.is_cancelled)} disabled {/if} ">修改预约</a>
+                        <a href="{:url('index/appointment/delete', ['id' => $appointment.id])}" class="btn btn-danger {if ($appointment.is_finished) OR ($appointment.is_cancelled)} disabled {/if}" >取消预约</a>
+                    </div>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+{include file="patient/footer" /}

@@ -1,0 +1,41 @@
+{include file="admin/header" title="查看检查项目" /}
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">查看检查项目</h3>
+        </div>
+        <div class="panel-body">
+            <a href="{:url('index/check_item/create')}" class="btn btn-success">添加检查项目</a>
+        </div>
+        <table name="check-item-list" class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>项目名</th>
+                <th>项目收费</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="check_item"}
+            <tr>
+                <td>{$check_item.id}</td>
+                <td>{$check_item.name}</td>
+                <td>{$check_item.price}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="operation">
+                        <a href="{:url('index/check_item/edit', ['id' => $check_item.id])}" class="btn btn-default">编辑</a>
+                        <a href="{:url('index/check_item/delete', ['id' => $check_item.id])}" class="btn btn-danger">删除</a>
+                    </div>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+{include file="admin/footer" /}
