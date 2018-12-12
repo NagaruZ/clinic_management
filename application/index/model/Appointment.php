@@ -21,6 +21,11 @@ class Appointment extends Model
         return $this->belongsTo('AppointmentPeriod','period_id');
     }
 
+    public function medical_record()
+    {
+        return $this->hasOne('MedicalRecord');
+    }
+
     protected $insert = [
         'is_cancelled' => 0,
         'is_finished' => 0,

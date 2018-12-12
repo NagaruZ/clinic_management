@@ -13,18 +13,18 @@
                         <label for="period_id">时间段</label>
                         {volist name="appointment_period_list" id="appointment_period"}
                         <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="period_id[]" value="{$appointment_period.id}"
-                                   {volist name="appointment_period_chosen_list" id="appointment_period_chosen"}
+                            <label>
+                                <input type="checkbox" name="period_id[]" value="{$appointment_period.id}"
+                                       {volist name="appointment_period_chosen_list" id="appointment_period_chosen"}
                                        {foreach $appointment_period_chosen_list as $period_chosen}
-                                            {if $appointment_period.id == $period_chosen.id}
-                                                checked
-                                            {/if}
-                                       {/foreach}
-                                   {/volist}
-                            >
-                            {$appointment_period.start_time} - {$appointment_period.end_time}
-                        </label>
+                                       {if $appointment_period.id == $period_chosen.id}
+                                       checked
+                                       {/if}
+                                {/foreach}
+                                {/volist}
+                                >
+                                {$appointment_period.start_time} - {$appointment_period.end_time}
+                            </label>
                         </div>
                         {/volist}
                     </div>

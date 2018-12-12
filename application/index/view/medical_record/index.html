@@ -1,4 +1,4 @@
-{if session('role') == 'patient'}
+{if session('ext_user')['role'] == 'patient'}
 {include file="patient/header" title="查看所有预约" /}
 {else /}
 {include file="doctor/header" title="查看所有预约" /}
@@ -11,13 +11,13 @@
             <h3 class="panel-title">查看所有预约</h3>
         </div>
         <div class="panel-body">
-            {if session('role') == 'patient'}<a href="{:url('index/appointment/create')}" class="btn btn-success">预约新的诊断</a>{/if}
+            <a href="{:url('index/appointment/create')}" class="btn btn-success">预约新的诊断</a>
         </div>
         <table name="appointment-list" class="table">
             <thead>
             <tr>
                 <th>#</th>
-                {if session('role') == 'patient'}
+                {if session('ext_user')['role'] == 'patient'}
                 <th>医生</th>
                 {else /}
                 <th>患者</th>
@@ -33,7 +33,7 @@
             <tr>
                 <td>{$appointment.id}</td>
                 <td>
-                    {if session('role') == 'patient'}
+                    {if session('ext_user')['role'] == 'patient'}
                     {$appointment.doctor.name}
                     {else /}
                     {$appointment.patient.name}
@@ -46,7 +46,7 @@
                 <td>{$appointment.cancel_status}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="operation">
-                        {if session('role') == 'patient'}
+                        {if session('ext_user')['role'] == 'patient'}
                         <a href="{:url('index/appointment/edit', ['id' => $appointment.id])}" class="btn btn-default {if ($appointment.is_finished) OR ($appointment.is_cancelled)} disabled {/if} ">修改预约</a>
                         <a href="{:url('index/appointment/delete', ['id' => $appointment.id])}" class="btn btn-danger {if ($appointment.is_finished) OR ($appointment.is_cancelled)} disabled {/if}" >取消预约</a>
                         {else /}

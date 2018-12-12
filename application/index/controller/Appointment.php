@@ -111,4 +111,16 @@ class Appointment extends Controller
         else
             return $appointment->getError();
     }
+
+    public function finish($id)
+    {
+        $appointment = AppointmentModel::get($id);
+        $appointment->is_finished = 1;
+        if($appointment->save()){
+            session('appointment_id', $appointment->id);
+            return $this->success('已完成预约，接下来将跳转到就诊记录添加页面', url('index/medical_record/create'));
+        }
+        else
+            return $appointment->getError();
+    }
 }

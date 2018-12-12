@@ -6,5 +6,14 @@ use think\Model;
 
 class Prescription extends Model
 {
-    //
+    public function check_items()
+    {
+        return $this->belongsToMany('CheckItem', 'prescription_detail');
+    }
+
+    public function medical_record()
+    {
+        return $this->belongsTo('MedicalRecord');
+    }
+
 }
