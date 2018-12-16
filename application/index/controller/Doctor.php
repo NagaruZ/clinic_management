@@ -20,9 +20,9 @@ class Doctor extends Controller
 
     public function logout()
     {
-        \app\index\model\Doctor::logout();
+        DoctorModel::logout();
         if (!session('?ext_user')) {
-            header(strtolower("location:". config("web").'/index/log/log'));
+            header(strtolower("location:". config("web").'/index/log/login'));
             exit();
         }
         return NULL;
@@ -139,5 +139,47 @@ class Doctor extends Controller
             return $this->success('医生[' . $doctor->name . ']' . "删除成功", url('index/doctor/index'));
         else
             return $this->error('删除失败', config("web").'/index/doctor/index');
+    }
+
+    public function change_password()
+    {
+        $old_password_input = md5(input('request.old_password'));
+        $new_password = input('request.new_password');
+        $new_password_repeat = input('request.new_password_repeat');
+        $id = session('ext_user')['id'];
+        $user = DoctorModel::get($id);
+        $old_password = $user['password'];
+        if($old_password == $old_password_input)
+        {
+            if($new_password == $new_password_repeat)
+            {
+                $is_successful = DoctorModel::update_password($id, $new_password);
+                if($is_successful)
+                {
+                    session("ext_user", NULL);
+                    session("role", NULL);
+                    return $this->success('修改成功，请重新登录', config("web").'/index/log/login');
+                }
+                else
+                    return $this->error("修改密码失败");
+            }
+            else
+            {
+                return $this->error("两次输入密码不一致");
+            }
+        }
+        else
+        {
+            return $this->error("原密码输入错误");
+        }
+    }
+
+    public function changepsw()
+    {
+        if (!session('?ext_user')) {
+            return redirect('index/index/index');
+            exit();
+        }
+        return $this->fetch('common/changepsw');
     }
 }

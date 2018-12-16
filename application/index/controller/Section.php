@@ -55,7 +55,9 @@ class Section extends Controller
     public function read($id)
     {
         $section = SectionModel::get($id);
-        dump($section->doctors);
+        $this->assign('list',$section->doctors);
+        return $this->fetch('doctor/index');
+//        dump($section->doctors);
     }
 
     /**

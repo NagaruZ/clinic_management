@@ -1,19 +1,26 @@
+{if session('role') == 'admin'}
 {include file="admin/header" title="查看医生" /}
-
+{else /}
+{include file="patient/header" title="查看医生" /}
+{/if}
 <body>
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">查看医生</h3>
         </div>
+        {if session('role') == 'admin'}
         <div class="panel-body">
             <a href="{:url('index/doctor/create')}" class="btn btn-success">添加医生</a>
         </div>
+        {/if}
         <table name="doctor-list" class="table">
             <thead>
             <tr>
                 <th>#</th>
+                {if session('role') == 'admin'}
                 <th>用户名</th>
+                {/if}
                 <th>姓名</th>
                 <th>性别</th>
                 <th>出生日期</th>
@@ -22,14 +29,18 @@
                 <th>电话号码</th>
                 <th>描述</th>
                 <th>最大可预约人数</th>
+                {if session('role') == 'admin'}
                 <th>操作</th>
+                {/if}
             </tr>
             </thead>
             <tbody>
             {volist name="list" id="doctor"}
             <tr>
                 <td>{$doctor.id}</td>
+                {if session('role') == 'admin'}
                 <td>{$doctor.username}</td>
+                {/if}
                 <td>{$doctor.name}</td>
                 <td>{$doctor.gender_name}</td>
                 <td>{$doctor.birth_date}</td>
@@ -38,12 +49,14 @@
                 <td>{$doctor.phone}</td>
                 <td>{$doctor.description}</td>
                 <td>{$doctor.max_appointment_num}</td>
+                {if session('role') == 'admin'}
                 <td>
                     <div class="btn-group" role="group" aria-label="operation">
                         <a href="{:url('index/doctor/edit', ['id' => $doctor.id])}" class="btn btn-default">编辑</a>
                         <a href="{:url('index/doctor/delete', ['id' => $doctor.id])}" class="btn btn-danger">删除</a>
                     </div>
                 </td>
+                {/if}
             </tr>
             {/volist}
             </tbody>

@@ -87,8 +87,6 @@ class MedicalRecord extends Controller
         $this->assign('check_item_list', $check_items);
         $this->assign('medical_record', $medical_record);
         $this->assign('payment', $prescription->payment);
-//        $this->assign('total_price', $prescription->payment->price);
-//        $this->assign('is_paid', $prescription->payment->is_paid);
         return $this->fetch();
     }
 

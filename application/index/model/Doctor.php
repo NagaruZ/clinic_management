@@ -49,10 +49,20 @@ class Doctor extends Model
         }
     }
 
-    public static function logout(){
+    public static function logout()
+    {
         session("ext_user", NULL);
         session("role", NULL);
         redirect('index/index/index');
-//        return ;
+    }
+
+    public static function update_password($id, $new_password)
+    {
+        $where['id'] = $id;
+        $user = Doctor::where($where)->update(['password' => md5($new_password)]);
+        if($user)
+            return true;
+        else
+            return false;
     }
 }

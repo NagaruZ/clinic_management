@@ -27,6 +27,16 @@ class Patient extends Model
     public static function logout(){
         session("ext_user", NULL);
         session("role", NULL);
-        return ;
+        redirect('index/index/index');
+    }
+
+    public static function update_password($id, $new_password)
+    {
+        $where['id'] = $id;
+        $user = Patient::where($where)->update(['password' => md5($new_password)]);
+        if($user)
+            return true;
+        else
+            return false;
     }
 }

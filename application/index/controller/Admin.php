@@ -32,11 +32,10 @@ class Admin extends Controller
     public function changepsw()
     {
         if (!session('?ext_user')) {
-//            header(strtolower("location: /log"));
             return redirect('index/index/index');
             exit();
         }
-        return $this->fetch();
+        return $this->fetch('common/changepsw');
     }
 
     public function change_password()
@@ -56,7 +55,7 @@ class Admin extends Controller
                 {
                     session("ext_user", NULL);
                     session("role", NULL);
-                    return $this->success('修改成功，请重新登录', config("web").'/index/log/log');
+                    return $this->success('修改成功，请重新登录', config("web").'/index/log/login');
                 }
                 else
                     return $this->error("修改密码失败");

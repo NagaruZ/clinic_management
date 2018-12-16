@@ -43,7 +43,7 @@ class Log extends Controller
         }
         else
         {
-            return $this->error("用户名或密码错误","log/log");
+            return $this->error("用户名或密码错误","log/login");
         }
     }
 

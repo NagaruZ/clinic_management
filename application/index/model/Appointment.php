@@ -48,4 +48,9 @@ class Appointment extends Model
         ];
         return $status[$data['is_finished']];
     }
+
+    public function getUpdateTimeAttr($value)
+    {
+        return date('Y-m-d H:i:s', $value);
+    }
 }

@@ -9,6 +9,7 @@ use app\index\model\Doctor as DoctorModel;
 
 class DoctorArrangement extends Controller
 {
+
     /**
      * 显示资源列表
      *
@@ -17,9 +18,7 @@ class DoctorArrangement extends Controller
     public function index($id)
     {
         $doctor = DoctorModel::get($id);
-        $res["code"] = 0;
-        $res["data"] = $doctor->periods;
-        return json_encode($res);
+        return $doctor->periods;
     }
 
     /**

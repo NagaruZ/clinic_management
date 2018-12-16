@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use app\index\model\Prescription as PrescriptionModel;
 
 class Prescription extends Controller
 {
@@ -14,7 +15,7 @@ class Prescription extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

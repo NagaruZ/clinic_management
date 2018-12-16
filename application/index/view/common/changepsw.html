@@ -1,0 +1,31 @@
+{include file="common/header" title="修改密码" /}
+
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">修改密码</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form">
+                <form method="post" action="change_password">
+                    <div class="form-group">
+                        <label for="old_password">原密码</label>
+                        <input type="password" name="old_password" class="form-control" placeholder="请输入原密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">新密码</label>
+                        <input type="password" name="new_password" class="form-control" placeholder="请输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password_repeat">再次输入新密码</label>
+                        <input type="password" name="new_password_repeat" class="form-control" placeholder="请再次输入新密码">
+                    </div>
+                    <button type="submit" value="提交"  class="btn btn-primary">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="common/footer" /}
