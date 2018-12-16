@@ -15,4 +15,10 @@ class MedicalRecord extends Model
     {
         return $this->belongsTo('Appointment');
     }
+
+    public function getCreateTimeAttr($value)
+    {
+        return date('Y-m-d H:i:s', $value);
+    }
+
 }

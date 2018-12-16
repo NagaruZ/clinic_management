@@ -18,7 +18,9 @@ class MedicalRecord extends Controller
      */
     public function index()
     {
-        //
+        $list = MedicalRecordModel::all();
+        $this->assign('list', $list);
+        return $this->fetch();
     }
 
     /**
@@ -44,22 +46,30 @@ class MedicalRecord extends Controller
         if(MedicalRecordModel::where('appointment_id', session('appointment_id'))->find())
             return $this->error('此预约已有对应的就诊记录',url('index/appointment/index'));
 
-        $medical_record = new MedicalRecordModel();
-        $medical_record->description = input('post.description');
-        $medical_record->diagnose = input('post.diagnose');
-        $medical_record->appointment_id = session('appointment_id');
-        $medical_record->save();
+        // add appointment
+        $appointment = AppointmentModel::get(session('appointment_id'));
+        $medical_record = $appointment->medical_record()->save([
+            'description' => input('post.description'),
+            'diagnose' => input('post.diagnose')
+        ]);
 
+        // add prescription
         $prescription = $medical_record->prescription()->save(null);
-        dump($prescription->id);
-        $status = $prescription->check_items()->saveAll(input('post.check_item_id'));
+
+        // add check items
+        $prescription->items()->saveAll(input('post.check_item_id'));
+
+        // add payment
+        $total_price = CheckItemModel::where(['id' => input('post.check_item_id')])->sum('price');
+        $status = $prescription->payment()->save(['price' => $total_price]);
+
         if($status)
         {
             return $this->success('就诊记录与处方添加成功！',url('index/appointment/index'));
         }
         else
         {
-            return $prescription->getError();
+            return $prescription->payment()->getError();
         }
     }
 
@@ -71,7 +81,15 @@ class MedicalRecord extends Controller
      */
     public function read($id)
     {
-        //
+        $medical_record = MedicalRecordModel::get($id);
+        $prescription = PrescriptionModel::get($medical_record->prescription->id);
+        $check_items = $prescription->items;
+        $this->assign('check_item_list', $check_items);
+        $this->assign('medical_record', $medical_record);
+        $this->assign('payment', $prescription->payment);
+//        $this->assign('total_price', $prescription->payment->price);
+//        $this->assign('is_paid', $prescription->payment->is_paid);
+        return $this->fetch();
     }
 
     /**

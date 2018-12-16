@@ -6,7 +6,7 @@ use think\Model;
 
 class Prescription extends Model
 {
-    public function check_items()
+    public function items()
     {
         return $this->belongsToMany('CheckItem', 'prescription_detail');
     }
@@ -14,6 +14,11 @@ class Prescription extends Model
     public function medical_record()
     {
         return $this->belongsTo('MedicalRecord');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne('payment');
     }
 
 }

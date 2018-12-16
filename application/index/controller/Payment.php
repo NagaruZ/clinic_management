@@ -4,34 +4,10 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use app\index\model\Payment as PaymentModel;
 
-class Patient extends Controller
+class Payment extends Controller
 {
-    public function home()
-    {
-        if (!session('?ext_user')) {
-            header(strtolower("location: " . config("web"). "index/log/log"));
-            exit();
-        }
-        $this->assign('title', '主页');
-        return $this->fetch();
-    }
-
-    public function logout()
-    {
-        \app\index\model\Patient::logout();
-        if (!session('?ext_user')) {
-            header(strtolower("location:". config("web").'/index/log/log'));
-            exit();
-        }
-        return NULL;
-    }
-
-    public function register()
-    {
-        return $this->fetch();
-    }
-
     /**
      * 显示资源列表
      *
@@ -106,5 +82,15 @@ class Patient extends Controller
     public function delete($id)
     {
         //
+    }
+
+    public function finish($id)
+    {
+        $payment = PaymentModel::get($id);
+        $payment->is_paid = 1;
+        if($payment->save())
+            return $this->success('付款成功！');
+        else
+            return $payment->getError();
     }
 }

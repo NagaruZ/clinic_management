@@ -1,0 +1,65 @@
+{if session('role') == 'patient'}
+{include file="patient/header" title="查看就诊记录详情" /}
+{else /}
+{include file="doctor/header" title="查看就诊记录详情" /}
+{/if}
+
+<body>
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">症状描述</h3>
+        </div>
+        <div class="panel-body">
+            {$medical_record.description}
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">诊断结果</h3>
+        </div>
+        <div class="panel-body">
+            {$medical_record.diagnose}
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">处方</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <th>项目</th>
+                    <th>价格</th>
+                </thead>
+                <tbody>
+                    {volist name="check_item_list" id="check_item"}
+                    <tr>
+                        <td>
+                            {$check_item.name}
+                        </td>
+                        <td>
+                            {$check_item.price}
+                        </td>
+                    </tr>
+                    {/volist}
+
+                    <tr class="success">
+                        <td>总计</td>
+                        <td>{$payment.price}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {if session('role') == 'patient'}
+                {if !$payment.is_paid}
+                    <a class="btn btn-success" href="{:url('index/payment/finish', ['id' => $payment.id])}">付款</a>
+                {else /}
+                    <a class="btn btn-success disabled" href="#">已付款</a>
+                {/if}
+            {/if}
+        </div>
+    </div>
+</div>
+</body>
+
+{include file="doctor/footer" /}
