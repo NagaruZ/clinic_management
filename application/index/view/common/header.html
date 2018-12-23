@@ -12,6 +12,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">{$Think.config.app_name}</a>
         </div>
+        {if session('ext_user')}
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -19,5 +20,6 @@
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
+        {/if}
     </div><!--/.container-fluid -->
 </nav>

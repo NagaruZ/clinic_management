@@ -123,4 +123,13 @@ class MedicalRecord extends Controller
     {
         //
     }
+
+    public function search()
+    {
+        $medical_record_list = MedicalRecordModel::whereTime('create_time','>=', input('post.start_date'))
+            ->whereTime('create_time', '<=', input('post.end_date'))
+            ->select();
+        $this->assign('list', $medical_record_list);
+        return $this->fetch('medical_record/index');
+    }
 }

@@ -4,11 +4,15 @@
 <script>
     $("[name='doctor_id']").change(function () {
         var id = $("[name='doctor_id']").val();
+        var fullPath = window.document.location.href;
+        var pathName = window.document.location.pathname;
+        var pos = fullPath.indexOf(pathName);
+        var serverPath = fullPath.substring(0, pos);
         if(id != 0)
         {
             $.ajax({
                 type: "get",
-                url: "http://localhost/code/clinic_management/public/index/doctor_arrangement/index/id/" + id,
+                url: serverPath + "/code/clinic_management/public/index/doctor_arrangement/index/id/" + id,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {

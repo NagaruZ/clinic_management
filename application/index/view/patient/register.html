@@ -1,4 +1,4 @@
-{include file="patient/header" title="会员注册" /}
+{include file="common/header" title="会员注册" /}
 
 <body>
 <div class="container">
@@ -18,6 +18,10 @@
                         <input type="password" name="password" class="password form-control" placeholder="密码">
                     </div>
                     <div class="form-group">
+                        <label for="password_repeat">确认密码</label>
+                        <input type="password" name="password_repeat" class="password form-control" placeholder="请再输入一次密码">
+                    </div>
+                    <div class="form-group">
                         <label for="name">姓名</label>
                         <input type="text" name="name" class="username form-control" placeholder="姓名">
                     </div>
@@ -27,7 +31,10 @@
                     </div>
                     <div class="form-group">
                         <label for="gender">性别</label>
-                        <input type="text" name="gender" class="form-control" placeholder="性别">
+                        <select name="gender">
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="phone">手机号</label>
@@ -41,4 +48,4 @@
 </div>
 </body>
 
-{include file="patient/footer" /}
+{include file="common/footer" /}

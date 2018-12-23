@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use app\index\model\Patient as PatientModel;
 
 class Patient extends Controller
 {
@@ -60,7 +61,20 @@ class Patient extends Controller
      */
     public function save(Request $request)
     {
-        //
+        $patient = new PatientModel();
+        if(input('post.password') != input('post.password_repeat'))
+            return $this->error('两次输入的密码不一致');
+
+        $info = input('post.');
+        $info['password'] = md5($info['password']);
+        if($patient->save($info))
+        {
+            return $this->success('注册成功！', url('index/log/login'));
+        }
+        else
+        {
+            return $patient->getError();
+        }
     }
 
     /**

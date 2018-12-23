@@ -177,10 +177,6 @@ class Appointment extends Controller
 
     public function search()
     {
-//        $appointment_list = AppointmentModel::where('patient_id', input('post.patient_id'))
-//            ->where('period_id', input('post.period_id'))
-//            ->where('is_finished', input('post.is_finished'))
-//            ->where('is_cancelled', input('post.is_cancelled'))
         $appointment_list = AppointmentModel::where(input('post.'))
             ->select();
         $this->assign('appointment_list', $appointment_list);
